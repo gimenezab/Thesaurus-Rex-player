@@ -163,10 +163,11 @@ def find_in_dict (word, words, used):
 
     #check the word itself and remove from dictionary and add it to used if found
     if word in new_words:
-        print(word)
-        used.append(word)
         words.remove(word)
         new_words.remove(word)
+        if word not in used:
+            print(word)
+            used.append(word)
     
     return words, new_words, used
 
@@ -237,6 +238,10 @@ def results (used):
 
     #libraries
     from collections import Counter
+
+    #print info
+    print('Number of words found:')
+    print(len(used))
 
     #convert words to length of words
     used = [len(word) for word in used]
