@@ -137,7 +137,7 @@ def johnnywalker (start, valid, word, board, words, used):
         new_word = word + board[next_step[0]][next_step[1]]
         
         #check if new word is in words
-        words, new_words, used = find_in_dict(new_word, words, used)
+        new_words, used = find_in_dict(new_word, words, used)
 
         #if there are words down the line, keep exploring
         if len(new_words) > 0:
@@ -162,14 +162,11 @@ def find_in_dict (word, words, used):
     new_words = list(filter(lambda x: x.startswith(word), words))
 
     #check the word itself and remove from dictionary and add it to used if found
-    if word in new_words:
-        words.remove(word)
-        new_words.remove(word)
-        if word not in used:
-            print(word)
-            used.append(word)
+    if word in new_words and word not in used:
+        print(word)
+        used.append(word)
     
-    return words, new_words, used
+    return new_words, used
 
 
 
@@ -267,6 +264,8 @@ def results (used):
     print('Total points found:')
     print(total)
 
+    
+    
 if __name__ == "__main__":
 
     start()
