@@ -230,7 +230,7 @@ def start ():
     results(used)
 
 
-
+    
 def results (used):
 
     #libraries
@@ -249,16 +249,27 @@ def results (used):
     #print info
     print('Words length frequency:')
     print(ctr)
+    for i in range(min(ctr.keys()),1+max(ctr.keys())):
+        print(i, ctr[i])
 
     #create a long enough vector of points per length
     simple_fibo = [0,1]
     for i in range(50):
         simple_fibo.append(simple_fibo[-2]+simple_fibo[-1])
+    
+    #points per words length frequency
+    for key, count in ctr.items():
+        ctr[key] = simple_fibo[key-1] * count
+    
+    #print info
+    print('Points per word length:')
+    for i in range(min(ctr.keys()),1+max(ctr.keys())):
+        print(i, ctr[i])
 
     #calculate points
     total = 0
-    for i, points in enumerate(simple_fibo):
-        total += points * ctr[i+1]
+    for points in ctr.values():
+        total += points
 
     #print info
     print('Total points found:')
