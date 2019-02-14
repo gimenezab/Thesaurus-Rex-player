@@ -28,6 +28,9 @@ def import_dict (lang, word_length):
     #remove duplicates
     words = list(set(words))
 
+    #sort
+    words.sort()
+
     return words
 
 
@@ -223,6 +226,17 @@ def start ():
             break
     board = create_board(letters)
 
+    #remove words with unwanted letters
+    clean_words = []
+    for w in range(len(words)):
+        contained = True
+        for l in range(len(words[w])):
+            if words[w][l] not in letters.lower():
+                contained = False
+                break
+        if contained:
+            clean_words.append(words[w])
+
     #start exploring
     used = walk_the_lines(board, words)
     
@@ -254,7 +268,7 @@ def results (used):
 
     #create a long enough vector of points per length
     simple_fibo = [0,1]
-    for i in range(50):
+    for i in range(26):
         simple_fibo.append(simple_fibo[-2]+simple_fibo[-1])
     
     #points per words length frequency
